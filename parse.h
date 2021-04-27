@@ -5,4 +5,5 @@ struct option {
     int isset;
 };
 
-void print_options();
+void print_opts();
+void add_opt(const char* short_opt, const char* long_opt);
