@@ -6,4 +6,4 @@ struct option {
 };
 
 void print_opts();
-void add_opt(const char* short_opt, const char* long_opt);
+void add_opt(struct option* opt);

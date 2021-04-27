@@ -13,8 +13,8 @@ struct option* _options[MAX_OPTS];
 int _opt_count = 0;
 
 void _print_opt(const struct option* opt) {
-    printf("opt{short_opt:'%s', long_opt:'%s'}\n", opt->short_opt,
-           opt->long_opt);
+    printf("opt{short_opt:'%s', long_opt:'%s', isset:%d, value:'%s'}\n",
+           opt->short_opt, opt->long_opt, opt->isset, opt->value);
 }
 
 void print_opts() {
@@ -23,18 +23,9 @@ void print_opts() {
     }
 }
 
-void add_opt(const char* short_opt, const char* long_opt) {
-    struct option* opt = (struct option*)malloc(sizeof(struct option));
-    char* stripped_short_opt = strip_left(short_opt, '-');
-    char* stripped_long_opt = strip_left(long_opt, '-');
-    opt->short_opt = (char*)malloc(sizeof(char) * (strlen(stripped_short_opt) + 1));
-    opt->long_opt = (char*)malloc(sizeof(char) * (strlen(stripped_long_opt) + 1));
-    strcpy(opt->short_opt, stripped_short_opt);
-    strcpy(opt->long_opt, stripped_long_opt);
-    opt->value = NULL;
+void add_opt(struct option* opt) {
     opt->isset = 0;
+    opt->value = NULL;
     _options[_opt_count] = opt;
     _opt_count++;
-    free(stripped_short_opt);
-    free(stripped_long_opt);
 }

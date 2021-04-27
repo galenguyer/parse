@@ -46,8 +46,10 @@ int main() {
     test("strip_left:none", strip_left("help", '-'), "help") ? passed++ : failed++;
 
     puts("----- [Adding and Printing Opts] -----");
-    add_opt("-h", "--help");
-    add_opt("-v", "--verbose");
+    struct option help = {.short_opt = "-h", .long_opt="--help"};
+    struct option verbosity = {.short_opt = "-v", .long_opt="--verbose"};
+    add_opt(&help);
+    add_opt(&verbosity);
     print_opts();
 
     puts("----- [Results] -----");
