@@ -11,14 +11,14 @@
 struct option* _options[MAX_OPTS];
 int _opt_count = 0;
 
-void _print_option(struct option* opt) {
+void _print_opt(const struct option* opt) {
     printf("opt{short_opt:'%s', long_opt:'%s'}\n", opt->short_opt,
            opt->long_opt);
 }
 
 void print_opts() {
     for (int i = 0; i < _opt_count; i++) {
-        _print_option(_options[i]);
+        _print_opt(_options[i]);
     }
 }
 
