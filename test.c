@@ -25,6 +25,7 @@ SOFTWARE.
 #include <stdio.h>
 
 #include "parse.h"
+#include "strings.h"
 
 int test(char* name, char* result, char* expected) {
     if (strcmp(expected, result) == 0) {
@@ -39,11 +40,17 @@ int test(char* name, char* result, char* expected) {
 int main() {
     int passed = 0, failed = 0;
 
+    puts("----- [strip_left] -----");
+    test("strip_left:single", strip_left("-h", '-'), "h") ? passed++ : failed++;
+    test("strip_left:multiple", strip_left("--help", '-'), "help") ? passed++ : failed++;
+    test("strip_left:none", strip_left("help", '-'), "help") ? passed++ : failed++;
+
+    puts("----- [Adding and Printing Opts] -----");
     add_opt("-h", "--help");
     add_opt("-v", "--verbose");
-
     print_opts();
 
+    puts("----- [Results] -----");
     printf("Tests Passed: %i\n", passed);
     printf("Tests Failed: %i\n", failed);
     return failed;

@@ -1,11 +1,11 @@
 CC=gcc
 
-CFLAGS=-Wall -Wextra -Werror -pedantic -fstack-protector-all -pedantic -std=c99
+CFLAGS=-Wall -Wextra -pedantic -fstack-protector-all -pedantic -std=c99
 SANITY_FLAGS=-Wfloat-equal -Wshadow -Wpointer-arith
 
 PREFIX ?= /usr
 
-SOURCE=test.c parse.c
+SOURCE=test.c parse.c strings.c
 
 OUTPUT=parse
 
