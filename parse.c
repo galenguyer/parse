@@ -33,10 +33,3 @@ void add_opt(const char* short_opt, const char* long_opt) {
     _options[_opt_count] = opt;
     _opt_count++;
 }
-
-int main() {
-    add_opt("-h", "--help");
-    add_opt("-v", "--verbose");
-    print_opts();
-    return 0;
-}
