@@ -25,7 +25,8 @@ void print_opts() {
 
 void add_opt(struct option* opt) {
     // TODO: Add checks to make sure long_opt and short_opt are valid
-    // TODO: Strip leading - from opts
+    opt->long_opt = strip_left(opt->long_opt, '-');
+    opt->short_opt = strip_left(opt->short_opt, '-');
     opt->isset = 0;
     opt->value = NULL;
     _options[_opt_count] = opt;
