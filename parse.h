@@ -7,3 +7,4 @@ struct option {
 
 void print_opts();
 void add_opt(struct option* opt);
+void parse_args(int argc, char** argv);

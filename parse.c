@@ -24,8 +24,33 @@ void print_opts() {
 }
 
 void add_opt(struct option* opt) {
+    // TODO: Add checks to make sure long_opt and short_opt are valid
+    // TODO: Strip leading - from opts
     opt->isset = 0;
     opt->value = NULL;
     _options[_opt_count] = opt;
     _opt_count++;
+}
+
+void parse_args(int argc, char** argv) {
+    char* prev_token = NULL;
+    for (int i = 1; i < argc; i++) {
+        char* curr_token = argv[i];
+        int token_len = strlen(argv[i]);
+        int tack_count = 0;
+        {
+            int j = 0;
+            while (curr_token[j] == '-') {
+                tack_count++;
+                j++;
+            }
+        }
+        if (tack_count == 1) {
+            for (int j = tack_count; j < token_len; j++) {
+                printf("%c\n", curr_token[j]);
+            }
+        } else if (tack_count == 2) {
+            printf("%s\n", curr_token + tack_count);
+        }
+    }
 }

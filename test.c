@@ -21,36 +21,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "parse.h"
 #include "strings.h"
 
 int test(char* name, char* result, char* expected) {
     if (strcmp(expected, result) == 0) {
-        printf("TEST PASSED: %s: expected %s, got %s\n", name, expected, result);
+        printf("TEST PASSED: %s: expected %s, got %s\n", name, expected,
+               result);
         return 1;
     } else {
-        printf("TEST FAILED: %s: expected %s, got %s\n", name, expected, result);
+        printf("TEST FAILED: %s: expected %s, got %s\n", name, expected,
+               result);
         return 0;
     }
 }
 
-int main() {
+int main(int argc, char** argv) {
     int passed = 0, failed = 0;
 
     puts("----- [strip_left] -----");
     test("strip_left:single", strip_left("-h", '-'), "h") ? passed++ : failed++;
-    test("strip_left:multiple", strip_left("--help", '-'), "help") ? passed++ : failed++;
-    test("strip_left:none", strip_left("help", '-'), "help") ? passed++ : failed++;
+    test("strip_left:multiple", strip_left("--help", '-'), "help") ? passed++
+                                                                   : failed++;
+    test("strip_left:none", strip_left("help", '-'), "help") ? passed++
+                                                             : failed++;
 
     puts("----- [Adding and Printing Opts] -----");
-    struct option help = {.short_opt = "-h", .long_opt="--help"};
-    struct option verbosity = {.short_opt = "-v", .long_opt="--verbose"};
+    struct option help = {.short_opt = "-h", .long_opt = "--help"};
+    struct option verbosity = {.short_opt = "-v", .long_opt = "--verbose"};
+    struct option echo = {.short_opt = "-e", .long_opt = "--echo"};
     add_opt(&help);
     add_opt(&verbosity);
+    add_opt(&echo);
     print_opts();
+
+    puts("----- [parse_args] -----");
+    char* test_args[5] = {"parse", "-v", "--help", "--echo", "testing"};
+    parse_args(5, test_args);
 
     puts("----- [Results] -----");
     printf("Tests Passed: %i\n", passed);
